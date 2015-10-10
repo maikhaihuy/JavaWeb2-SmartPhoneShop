@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 10, 2015 2:13:22 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.huy.model.pojo.Account" table="account" catalog="db_mobile_store" optimistic-lock="version">
+        <id name="accountId" type="java.lang.Integer">
+            <column name="AccountId" />
+            <generator class="identity" />
+        </id>
+        <property name="email" type="string">
+            <column name="Email" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="firstname" type="string">
+            <column name="Firstname" length="45" not-null="true" />
+        </property>
+        <property name="lastname" type="string">
+            <column name="Lastname" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 10, 2015 2:13:22 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.huy.model.pojo.Cart" table="cart" catalog="db_mobile_store" optimistic-lock="version">
+        <id name="cartId" type="java.lang.Integer">
+            <column name="CartId" />
+            <generator class="identity" />
+        </id>
+        <property name="email" type="string">
+            <column name="Email" length="45" not-null="true" />
+        </property>
+        <property name="date" type="string">
+            <column name="Date" length="45" not-null="true" />
+        </property>
+        <property name="statusCart" type="string">
+            <column name="StatusCart" length="45" />
+        </property>
+        <set name="detailCarts" table="detail_cart" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CartId" not-null="true" />
+            </key>
+            <one-to-many class="com.huy.model.pojo.DetailCart" />
+        </set>
+    </class>
+</hibernate-mapping>

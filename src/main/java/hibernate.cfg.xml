@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_mobile_store</property>
+        <property name="hibernate.connection.username">root</property>
+        <mapping resource="com/huy/model/pojo/Account.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/Product.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/Brain.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/Color.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/DetailProduct.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/Image.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/Cart.hbm.xml"></mapping>
+        <mapping resource="com/huy/model/pojo/DetailCart.hbm.xml"></mapping>
+    </session-factory>
+</hibernate-configuration>

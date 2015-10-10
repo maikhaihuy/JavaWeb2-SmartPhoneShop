@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 10, 2015 2:13:22 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.huy.model.pojo.DetailCart" table="detail_cart" catalog="db_mobile_store" optimistic-lock="version">
+        <id name="detailCartId" type="java.lang.Integer">
+            <column name="DetailCartId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cart" class="com.huy.model.pojo.Cart" fetch="select">
+            <column name="CartId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="detailProduct" class="com.huy.model.pojo.DetailProduct" fetch="select">
+            <column name="DetailProductId" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 10, 2015 2:13:22 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.huy.model.pojo.Image" table="image" catalog="db_mobile_store" optimistic-lock="version">
+        <id name="imageId" type="java.lang.Integer">
+            <column name="ImageId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="product" class="com.huy.model.pojo.Product" fetch="select">
+            <column name="ProductId" not-null="true" />
+        </many-to-one>
+        <property name="imageUrl" type="string">
+            <column name="ImageUrl" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

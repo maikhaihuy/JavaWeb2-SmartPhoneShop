@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 10, 2015 2:13:22 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.huy.model.pojo.Color" table="color" catalog="db_mobile_store" optimistic-lock="version">
+        <id name="colorId" type="java.lang.Integer">
+            <column name="ColorId" />
+            <generator class="identity" />
+        </id>
+        <property name="colorName" type="string">
+            <column name="ColorName" length="45" not-null="true" />
+        </property>
+        <set name="detailProducts" table="detail_product" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ColorId" not-null="true" />
+            </key>
+            <one-to-many class="com.huy.model.pojo.DetailProduct" />
+        </set>
+    </class>
+</hibernate-mapping>
