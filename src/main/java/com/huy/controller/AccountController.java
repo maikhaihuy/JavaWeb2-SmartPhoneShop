@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// Actions
+		// Actions
 		final private String loadLoginPage = "loadLogin";
 		final private String loadRegisterPage = "loadRegister";
 		final private String login = "login";
@@ -27,6 +27,7 @@ public class AccountController extends HttpServlet {
 		final private String logout = "logout";
 		final private String registerSuc = "registerSuccess";
 		// Uri
+		final private String url = "/pages/layout/main.jsp";
 		final private String urlIndex = "/pages/home/index.jsp";
 		final private String urlLogin = "/pages/account/login.jsp";
 		final private String urlRegister = "/pages/account/register.jsp";
@@ -37,7 +38,7 @@ public class AccountController extends HttpServlet {
 			//response.setContentType("text/html;charset=UTF-8");
 			ServiceDao sd = new ServiceDao();
 			
-	        String url = urlIndex;
+			String nextUrl = urlIndex;
 			String action = request.getParameter("action");
 			HttpSession session = request.getSession();
 			
@@ -48,11 +49,11 @@ public class AccountController extends HttpServlet {
 				if(session.getAttribute("user") == null && session.getAttribute("email") == null){
 					// Action load login page
 					if (action.equals(loadLoginPage)) {
-						url = urlLogin;
+						nextUrl = urlLogin;
 					}
 					// Action load register page
 					else if (action.equals(loadRegisterPage)) {
-						url = urlRegister;
+						nextUrl = urlRegister;
 					}
 					//Action login account
 					else if (action.equals(login)) {
@@ -70,14 +71,13 @@ public class AccountController extends HttpServlet {
 		                    //setting cookie to expiry in 30 mins
 		                    loginCookie.setMaxAge(30*60);
 		                    response.addCookie(loginCookie);*/
-		                    url = "home.do";
-		                    response.sendRedirect(url);
+		                    response.sendRedirect("home.do");
 		                    return ;
 						}
 						else {
 							String msg = "Username or Password was wrong.";
 		                    request.setAttribute("msg", msg);
-							url = urlLogin;
+		                    nextUrl = urlLogin;
 						}
 							
 					}
@@ -103,18 +103,17 @@ public class AccountController extends HttpServlet {
 							session.setAttribute("user", acc.getFirstname() + " " + acc.getLastname());
 							session.setAttribute("email", acc.getEmail());
 		                    
-							url = urlRegisterSuc;
+							nextUrl = urlRegisterSuc;
 						}
 						else {
 							String msg = "Registration failure";
 		                    request.setAttribute("msg", msg);
-							url = urlRegister;
+		                    nextUrl = urlRegister;
 						}
 					}
 				}
 				
 				else if (action.equals(logout)) {
-					url = "home.do";
 	                response.setContentType("text/html");
 	                /*Cookie loginCookie = null;
 	                Cookie[] cookies = request.getCookies();
@@ -132,10 +131,12 @@ public class AccountController extends HttpServlet {
 	                }*/
 	                session.invalidate();
 	                
-	                response.sendRedirect(url);
+	                response.sendRedirect("home.do");
 	                return;
 				}
 			}
+			
+			request.setAttribute("nextUrl", nextUrl);
 			
 			RequestDispatcher rd = request.getRequestDispatcher(url);
 	        rd.forward(request, response);

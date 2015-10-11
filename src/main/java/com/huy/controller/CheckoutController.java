@@ -28,6 +28,7 @@ public class CheckoutController extends HttpServlet {
 	final private String editCart = "editCart";
 	final private String confirmBook = "confirmBook";
 	
+	final private String url = "/pages/layout/main.jsp";
 	final private String urlIndex = "/pages/checkout/index.jsp";
 	final private String urlCart = "/pages/checkout/cart.jsp";
 	final private String urlCheckOut = "/pages/checkout/check-out.jsp";
@@ -40,7 +41,7 @@ public class CheckoutController extends HttpServlet {
 		ServiceDao sd = new ServiceDao();
 		
 		// Define variable
-		String url = urlIndex;
+		String nextUrl = urlIndex;
 		String action = request.getParameter("action");
 		HttpSession session=request.getSession();
 		
@@ -81,7 +82,7 @@ public class CheckoutController extends HttpServlet {
 				List<Product> products = sd.GetProducts();
 				request.setAttribute("products", products);
 				
-				url = urlCart;
+				nextUrl = urlCart;
 			} else if (action.equals(editCart)) { // Only remove product, not edit number of product.
 				// Warning
 				String detailProductId = request.getParameter("detailProductId");
@@ -105,18 +106,18 @@ public class CheckoutController extends HttpServlet {
 					}
 					session.setAttribute("cart", cart);
 				}
-				url = urlCart;
+				nextUrl = urlCart;
 			} else if (action.equals(checkOut)) {
 				String user = (String) session.getAttribute("user");
 				String email = (String) session.getAttribute("email");
 				
 				// Check out
 				if (user != null && email != null) {
-					url = urlCheckOut;
+					nextUrl = urlCheckOut;
 				}
 				// Login || Register
 				else {
-					url = urlLogin;
+					nextUrl = urlLogin;
 				}
 					
 			} else if (action.equals(confirmBook)) {
@@ -140,13 +141,15 @@ public class CheckoutController extends HttpServlet {
 				// Set request
 				request.setAttribute("address", address);
 				request.setAttribute("phone", phone);
-				url = urlBookSuc;
+				nextUrl = urlBookSuc;
 			}
 		}
 
 		List<Brain> brains = sd.GetBrains();
 		session.setAttribute("brains", brains);
 
+		request.setAttribute("nextUrl", nextUrl);
+		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}

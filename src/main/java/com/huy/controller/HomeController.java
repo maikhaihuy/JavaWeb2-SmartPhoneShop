@@ -26,6 +26,7 @@ public class HomeController extends HttpServlet {
 	final private String detailProduct = "detailProduct";
 	final private String searchAdv = "searchAdvance";
 	
+	final private String url = "/pages/layout/main.jsp";
 	final private String urlIndex = "/pages/home/index.jsp";
 	final private String urlProducts = "/pages/home/products.jsp";
 	final private String urlDetailProduct = "/pages/home/detail-product.jsp";
@@ -35,7 +36,7 @@ public class HomeController extends HttpServlet {
 		
 		ServiceDao sd = new ServiceDao();
 		
-		String url = urlIndex;
+		String nextUrl = urlIndex;
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 		
@@ -47,7 +48,7 @@ public class HomeController extends HttpServlet {
 				//Set products to request
 				request.setAttribute("products", products);
 
-				url = urlProducts;
+				nextUrl = urlProducts;
 			}
 			// Action detail product
 			else if (action.equals(detailProduct)) {
@@ -73,14 +74,16 @@ public class HomeController extends HttpServlet {
 					request.setAttribute("detailProducts", detailProducts);
 					request.setAttribute("images", images);
 					request.setAttribute("colors", colors);
-					url = urlDetailProduct;
+					nextUrl = urlDetailProduct;
 				}
 			}
 		}
 
 		List<Brain> brains = sd.GetBrains();
 		session.setAttribute("brains", brains);
-
+		
+		request.setAttribute("nextUrl", nextUrl);
+		
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
